@@ -1,0 +1,45 @@
+<div>
+    <!-- <input class="form-control" type="text" placeholder="chatid" [(ngModel)]="chatid">
+    <input class="form-control" type="text" placeholder="username" [(ngModel)]="username"> -->
+    <button class="btn btn-primary btn-lg btn-block" (click)="connect()" extended>Connect</button>
+</div>
+
+
+<div class="d-flex justify-content-center container mt-5">
+  <div class="wrapper">
+
+    
+      <div class="main">
+          <div class="px-2 scroll" #scroll>
+
+            <div class="d-flex align-items-center" 
+            [class.text-right]="messageService.isUser(msg.username)" 
+            [class.justify-content-end]="messageService.isUser(msg.username)" 
+            *ngFor="let msg of messageService.messages">
+                
+                <div *ngIf="messageService.isUser(msg.username)==false" class="pr-1 text-left">
+                    <img [attr.src]="getSRC(msg.username)" width="30" class="img1" />
+                </div>
+                <div *ngIf="messageService.isUser(msg.username)==false" class="pr-2 pl-1" [class.pr-2]="messageService.isUser(msg.username)"> 
+                    <span class="name">{{getUser(msg.username)}}</span>
+                    <p class="msg">{{msg.message}}</p>
+                </div>
+
+                <div *ngIf="messageService.isUser(msg.username)" class="pr-2">
+                    <span class="name">{{getUser(msg.username)}}</span>
+                    <p class="msg">{{msg.message}}</p>
+                </div>
+                <div *ngIf="messageService.isUser(msg.username)" > 
+                    <img [attr.src]="getSRC(msg.username)" width="30" class="img1" />
+                </div>
+                
+            </div>
+              
+          </div>
+          <nav class="navbar bg-white navbar-expand-sm d-flex justify-content-between">
+              <input type="text number" name="text" class="form-control" placeholder="Mensagem..." [(ngModel)]="input">
+              <div class="icondiv d-flex justify-content-end align-content-center text-center ml-2"> <i class="fa fa-paperclip icon1"></i> <i class="fa fa-arrow-circle-right icon2"></i> </div>
+          </nav>
+      </div>
+  </div>
+</div>
