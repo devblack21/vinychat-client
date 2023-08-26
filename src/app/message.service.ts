@@ -23,12 +23,10 @@ export class MessageService implements OnInit {
 
   sendMessage(message: String) {
     let msg = new Message(this.ticket, this.username, message);
-    this.stompClient.send('/app/send/message' , {}, JSON.stringify(msg));
+    this.stompClient.send('/app/message/send' , {}, JSON.stringify(msg));
   }
 
-  ngOnInit(): void {
-    //this.connectApi();
-  }
+  ngOnInit(): void {}
 
   connectApi() {
     if (this.ticket) {
@@ -63,7 +61,7 @@ export class MessageService implements OnInit {
 
   private listener(that) {
 
-    that.stompClient.subscribe('/queue/message/'+that.ticket, (message) => {
+    that.stompClient.subscribe('/message/queue/'+that.ticket, (message) => {
       if (message.body) {
         
         let response = JSON.parse(message.body);
@@ -131,7 +129,7 @@ export class MessageService implements OnInit {
           })
         }
 
-    return this.http.post<Message>(serverUrl+'/connection/first', JSON.stringify(message), headers);
+    return this.http.post<Message>(serverUrl+'/connection/first/connect', JSON.stringify(message), headers);
   }
 
   getMessages() {
@@ -154,7 +152,7 @@ export class MessageService implements OnInit {
           })
         }
 
-    return this.http.get<MessagesListResponse>(serverUrl+'/backup/messages/'+this.ticket, headers);
+    return this.http.get<MessagesListResponse>(serverUrl+'/message/backup/'+this.ticket, headers);
   }
 
   isUser(username: String) : boolean {
